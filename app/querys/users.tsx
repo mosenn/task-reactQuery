@@ -36,14 +36,8 @@ export const deleteUser = async (id: string) => {
 type user = { name: string; phone: string; email: string; id?: string };
 
 export const updateUser = async (user: user) => {
-  // console.log("function is work");
-  // console.log("user id for update", user.id);
-  // console.log(user, "user peroperty");
   const { id, name, phone, email } = user;
-  // console.log(id);
-  // console.log(name);
-  // console.log(phone);
-  // console.log(email);
+  console.log(id, "id in update user");
   const data = await fetch(`${url}/users/${user.id} `, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },

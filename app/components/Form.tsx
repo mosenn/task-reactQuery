@@ -4,8 +4,8 @@ import { useMutation, useQueryClient } from "react-query";
 import { addUser, updateUser } from "../querys/users";
 import { usePathname, useRouter } from "next/navigation";
 
-type userIdProps = { userId?: string };
-export const Form = ({ userId }: userIdProps) => {
+type userIdProps = { userId?: string; style?: string };
+export const Form = ({ userId, style }: userIdProps) => {
   // console.log(userId, "userId in form");
   const router = useRouter();
   const [user, setUser] = useState({
@@ -23,34 +23,42 @@ export const Form = ({ userId }: userIdProps) => {
   const mutationAddUser = useMutation(addUser, {
     onSuccess: () => {
       queryCL.invalidateQueries("users");
-
-      queryCL.invalidateQueries("users");
       router.push("/");
     },
   });
 
   const mutationUpdateUser = useMutation(updateUser, {
-    onSuccess: (data) => {
-      // Update the cache with the updated user
-      queryCL.setQueryData(["users", { id: data.id }], data);
+    onSuccess: async () => {
+      await queryCL.invalidateQueries(["users"]);
       // navigate to home page
       router.push("/");
     },
   });
 
+  //
+  // const mutationUpdateUser = useMutation((input: user) => updateUser(input), {
+  //   onSuccess: (data) => {
+  //     queryCL.invalidateQueries(
+  //       "https://63d108283f08e4a8ff8ef010.mockapi.io/users"
+  //     );
+  //     const message = "Contact Added Successfuly";
+  //     console.log(message);
+  //   },
+  //   onError: (data) => {
+  //     console.log(data + " there was an error");
+  //   },
+  // });
+  //
+
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
     if (path === "/add-user") {
       mutationAddUser.mutate({
-        //   email: "email@yahoo.com",
-        //   phone: "12313",
-        //   name: "213123",
-        //   id: "12",
         ...user,
       } as any);
       // console.log(user);
     }
-    if (path === `/update-user/${userId}`) {
+    if (path === `/update-user/${userId}` || path === "/") {
       mutationUpdateUser.mutate({
         ...user,
         id: userId,
@@ -58,7 +66,7 @@ export const Form = ({ userId }: userIdProps) => {
     }
   };
   return (
-    <form onSubmit={submitHandler}>
+    <form onSubmit={submitHandler} className={style}>
       <input
         type="text"
         name="name"
