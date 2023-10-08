@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useQuery } from "react-query";
 import DisplayUser from "../components/DisplayUser";
 import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 type usersType = {
   name: string;
   phone: string;
@@ -13,36 +14,33 @@ type usersType = {
 
 export default function HomePage() {
   const router = useRouter();
-  const [page, setPage] = useState(1); // Start with page 1
+  const searchParams = useSearchParams();
 
-  // const currentPage = parseInt(page as string, 10);
-  const perPage = 5; // Number of users to display per page
+  const page = searchParams.get("page") ?? 1;
+  const perPage = searchParams.get("perPage") ?? 5;
 
   const users = (page = 1) =>
     fetch(
       `https://63d108283f08e4a8ff8ef010.mockapi.io/users?page=${page}&limit=${perPage}`
     ).then((res) => res.json());
 
-  const { isLoading, isError, error, data, isFetching, isPreviousData } =
-    useQuery(
-      ["users", page, perPage], // Include perPage in the query key
-      () => users(page),
-      {
-        keepPreviousData: true,
-      }
-    );
+  const { isLoading, data } = useQuery(
+    ["users", page, perPage],
+    () => users(+page),
+    {
+      keepPreviousData: true,
+    }
+  );
 
   const nextPage = () => {
     if (data.length === 5) {
-      setPage((prevPage) => prevPage + 1);
-      // router.push(`/user?page=${currentPage + 1}`);
+      router.push(`/?page=${+page + 1}&per_page=${perPage}`);
     }
   };
 
   const prevPage = () => {
-    if (page > 1) {
-      setPage((prevPage) => prevPage - 1);
-      // router.push(`/user?page=${currentPage - 1}`);
+    if (+page > 1) {
+      router.push(`/?page=${+page - 1}&per_page=${perPage}`);
     }
   };
 
