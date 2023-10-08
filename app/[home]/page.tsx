@@ -13,14 +13,14 @@ type usersType = {
   id: string;
 };
 export default function HomePage() {
+  const [test, setTest] = useState("show someting");
   const query = useQuery("users", getUsers);
 
   const { data, isLoading } = query;
-
   return (
     <section>
-      <Link href="/add-user">add user</Link>
-
+      <Link href="/user/add">add user</Link>
+      <h1>home page</h1>
       <section>
         {isLoading ? (
           <h1>Loading...</h1>
@@ -35,6 +35,7 @@ export default function HomePage() {
           })
         )}
       </section>
+      <h1>{test}</h1>
     </section>
   );
 }

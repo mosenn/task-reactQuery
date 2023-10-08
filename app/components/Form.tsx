@@ -49,7 +49,7 @@ export const Form = ({ userId, style, value }: userIdProps | any) => {
 
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
-    if (path === "/add-user") {
+    if (path === "/user/add") {
       mutationAddUser.mutate({
         ...user,
       } as any);
@@ -86,7 +86,7 @@ export const Form = ({ userId, style, value }: userIdProps | any) => {
         value={user.phone}
       />
       <button type="submit">
-        {path === "/add-user" ? "add user" : "update user"}
+        {path === "/user/add" ? "add user" : "update user"}
       </button>
     </form>
   );

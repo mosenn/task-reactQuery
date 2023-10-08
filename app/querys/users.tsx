@@ -9,7 +9,6 @@ export const getUsers = async () => {
 export const user = async (id: string) => {
   const data = await fetch(`${url}/users/${id}`);
   const response = await data.json();
-  console.log(response);
   return response;
 };
 export const addUser = async (NewUserdata: any) => {
@@ -42,8 +41,6 @@ export const deleteUser = async (id: string) => {
 type user = { name: string; phone: string; email: string; id?: string };
 
 export const updateUser = async (user: user) => {
-  // const { id, name, phone, email } = user;
-
   const data = await fetch(`${url}/users/${user.id} `, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
