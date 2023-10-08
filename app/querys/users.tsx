@@ -5,7 +5,10 @@ const url = `https://63d108283f08e4a8ff8ef010.mockapi.io`;
 //     `https://63d108283f08e4a8ff8ef010.mockapi.io/users?page=${page}&limit=${perPage}`
 //   ).then((res) => res.json());
 
-export const getUsers = async (page: number, perPage: string | number) => {
+export const getUsers = async (
+  page: string | number,
+  perPage: string | number
+) => {
   const data = await fetch(`${url}/users?page=${page}&limit=${perPage}`);
   // console.log(await data.json(), "data in the function");
   return await data.json();
