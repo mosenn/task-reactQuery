@@ -1,16 +1,10 @@
 const url = `https://63d108283f08e4a8ff8ef010.mockapi.io`;
 
-// const users = (page = 1) =>
-//   fetch(
-//     `https://63d108283f08e4a8ff8ef010.mockapi.io/users?page=${page}&limit=${perPage}`
-//   ).then((res) => res.json());
-
 export const getUsers = async (
   page: string | number,
   perPage: string | number
 ) => {
   const data = await fetch(`${url}/users?page=${page}&limit=${perPage}`);
-  // console.log(await data.json(), "data in the function");
   return await data.json();
 };
 
@@ -55,6 +49,6 @@ export const updateUser = async (user: user) => {
     body: JSON.stringify({ ...user }),
   });
   const res = await data.json();
-  console.log(res, "user is update response");
+
   return res;
 };

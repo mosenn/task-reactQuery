@@ -70,6 +70,7 @@ export const Form = ({ userId, style, value }: userIdProps | any) => {
         placeholder="name"
         onChange={onchangeHandler}
         value={user.name}
+        className=" m-2 p-2 rounded-md focus:outline-lime-600"
       />
       <input
         type="text"
@@ -77,6 +78,7 @@ export const Form = ({ userId, style, value }: userIdProps | any) => {
         placeholder="email"
         onChange={onchangeHandler}
         value={user.email}
+        className="  m-2 p-2 rounded-md focus:outline-lime-600"
       />
       <input
         type="text"
@@ -84,8 +86,12 @@ export const Form = ({ userId, style, value }: userIdProps | any) => {
         placeholder="phone"
         onChange={onchangeHandler}
         value={user.phone}
+        className="m-2 p-2 rounded-md focus:outline-none focus:outline-lime-600"
       />
-      <button type="submit">
+      <button
+        type="submit"
+        className="bg-blue-500 hover:bg-blue-600 rounded-md w-[170px] m-2 p-2 text-white"
+      >
         {path === "/user/add" ? "add user" : "update user"}
       </button>
     </form>

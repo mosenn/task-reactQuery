@@ -1,19 +1,29 @@
 "use client";
+import ContainerForm from "@/app/components/ContainerForm";
 import { Form } from "@/app/components/Form";
+import Title from "@/app/components/Title";
 import { user } from "@/app/querys/users";
 import React from "react";
 import { useQuery } from "react-query";
 const UpdateUser = ({ params }: { params: { id: string } }) => {
   console.log(params, "paramas");
   const { id } = params;
-  const { data, error, isLoading } = useQuery(["users", id], () => user(id));
+  const { data, isLoading } = useQuery(["users", id], () => user(id));
   console.log(data, "data in update user");
 
   return (
-    <div>
-      UpdateUser
-      {!isLoading && <Form userId={id} value={...data} />}
-    </div>
+    <ContainerForm>
+      <Title text="you can update user" />
+      {!isLoading && (
+        <Form
+          userId={id}
+          value={...data}
+          style={
+            "flex flex-col items-center -300 justify-center w-[100%] md:flex-row"
+          }
+        />
+      )}
+    </ContainerForm>
   );
 };
 
