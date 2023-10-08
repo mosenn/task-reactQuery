@@ -1,8 +1,8 @@
 "use client";
 import ContainerForm from "@/app/components/ContainerForm";
-import { Form } from "@/app/components/Form";
+import { Form } from "@/app/components/form/Form";
 import Title from "@/app/components/Title";
-import { user } from "@/app/querys/users";
+import { user } from "@/app/libs/users";
 import React from "react";
 import { useQuery } from "react-query";
 const UpdateUser = ({ params }: { params: { id: string } }) => {

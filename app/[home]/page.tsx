@@ -11,7 +11,7 @@ type usersType = {
   email: string;
   id: string;
 };
-
+import { AiOutlineArrowRight, AiOutlineArrowLeft } from "react-icons/ai";
 export default function HomePage() {
   const { isLoading, data, nextPage, prevPage, page, perPage } =
     usePagenation();
@@ -34,12 +34,22 @@ export default function HomePage() {
           })}
         </div>
       )}
-      <section className="flex justify-center items-center">
+      <section className="flex justify-center items-center p-3">
         <button onClick={prevPage} disabled={page === 1}>
-          Previous Page
+          <AiOutlineArrowLeft
+            size={20}
+            fill={+page === 1 && "rgb(200, 200, 200)"}
+            className="hover:fill-cyan-600"
+          />
         </button>{" "}
-        <div>{page}</div>
-        <button onClick={nextPage}>Next Page</button>
+        <div className="mx-3 text-xl">{page}</div>
+        <button onClick={nextPage}>
+          <AiOutlineArrowRight
+            className="hover:fill-cyan-600"
+            size={20}
+            fill={data?.length >= perPage ? "black" : "rgb(200, 200, 200)"}
+          />
+        </button>
       </section>
     </section>
   );

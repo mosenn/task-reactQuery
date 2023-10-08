@@ -1,4 +1,4 @@
-import { getUsers } from "../querys/users";
+import { getUsers } from "../libs/users";
 import { useQuery } from "react-query";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
@@ -24,7 +24,7 @@ const usePagenation = () => {
 
   const prevPage = () => {
     if (+page > 1) {
-      router.push(`/?page=${+page - 1}&per_page=${perPage}`);
+      router.push(`/?page=${+page - 1}&perPage=${perPage}`);
     }
   };
   return { nextPage, prevPage, data, isLoading, page, perPage };
