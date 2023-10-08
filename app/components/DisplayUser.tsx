@@ -20,6 +20,7 @@ const DisplayUser = ({ name, email, phone, id }: propsTypes) => {
       queryCl.invalidateQueries("users");
     },
   });
+  const value = { name, email, phone };
 
   return (
     <section>
@@ -47,7 +48,7 @@ const DisplayUser = ({ name, email, phone, id }: propsTypes) => {
             update user here
           </button>
         </section>
-        {formActive && <Form userId={id} style={`my-3`} />}
+        {formActive && <Form userId={id} value={value} style={`my-3`} />}
       </div>
     </section>
   );

@@ -1,8 +1,8 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
-import { useQuery, useQueryClient, useMutation } from "react-query";
-import { getUsers, updateUser } from "../querys/users";
+import { useQuery } from "react-query";
+import { getUsers } from "../querys/users";
 
 import DisplayUser from "../components/DisplayUser";
 

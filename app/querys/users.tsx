@@ -6,10 +6,16 @@ export const getUsers = async () => {
   return await data.json();
 };
 
+export const user = async (id: string) => {
+  const data = await fetch(`${url}/users/${id}`);
+  const response = await data.json();
+  console.log(response);
+  return response;
+};
 export const addUser = async (NewUserdata: any) => {
   console.log(NewUserdata, " NewUserdata in add user function query file");
   const { name, email, phone } = NewUserdata;
-  console.log(name, email, phone);
+  // console.log(name, email, phone);
   const data = await fetch(`${url}/users`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -36,17 +42,12 @@ export const deleteUser = async (id: string) => {
 type user = { name: string; phone: string; email: string; id?: string };
 
 export const updateUser = async (user: user) => {
-  const { id, name, phone, email } = user;
-  console.log(id, "id in update user");
+  // const { id, name, phone, email } = user;
+
   const data = await fetch(`${url}/users/${user.id} `, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      id,
-      name,
-      email,
-      phone,
-    }),
+    body: JSON.stringify({ ...user }),
   });
   const res = await data.json();
   console.log(res, "user is update response");

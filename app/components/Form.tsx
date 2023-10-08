@@ -4,14 +4,26 @@ import { useMutation, useQueryClient } from "react-query";
 import { addUser, updateUser } from "../querys/users";
 import { usePathname, useRouter } from "next/navigation";
 
-type userIdProps = { userId?: string; style?: string };
-export const Form = ({ userId, style }: userIdProps) => {
+type userIdProps = {
+  userId?: string;
+  style?: string;
+  value?: inpValue;
+};
+type inpValue = {
+  name?: string;
+  email?: string;
+  phone?: string;
+};
+export const Form = ({ userId, style, value }: userIdProps | any) => {
+  console.log(value, "value");
+  const { name, email, phone } = value || {};
+
   // console.log(userId, "userId in form");
   const router = useRouter();
   const [user, setUser] = useState({
-    name: "",
-    email: "",
-    phone: "",
+    name,
+    email,
+    phone,
   });
   const path = usePathname();
 
@@ -35,21 +47,6 @@ export const Form = ({ userId, style }: userIdProps) => {
     },
   });
 
-  //
-  // const mutationUpdateUser = useMutation((input: user) => updateUser(input), {
-  //   onSuccess: (data) => {
-  //     queryCL.invalidateQueries(
-  //       "https://63d108283f08e4a8ff8ef010.mockapi.io/users"
-  //     );
-  //     const message = "Contact Added Successfuly";
-  //     console.log(message);
-  //   },
-  //   onError: (data) => {
-  //     console.log(data + " there was an error");
-  //   },
-  // });
-  //
-
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
     if (path === "/add-user") {
@@ -72,18 +69,21 @@ export const Form = ({ userId, style }: userIdProps) => {
         name="name"
         placeholder="name"
         onChange={onchangeHandler}
+        value={user.name}
       />
       <input
         type="text"
         name="email"
         placeholder="email"
         onChange={onchangeHandler}
+        value={user.email}
       />
       <input
         type="text"
         name="phone"
         placeholder="phone"
         onChange={onchangeHandler}
+        value={user.phone}
       />
       <button type="submit">
         {path === "/add-user" ? "add user" : "update user"}
