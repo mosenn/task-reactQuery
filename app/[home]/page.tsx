@@ -28,9 +28,8 @@ export default function HomePage() {
               const { id } = user;
               return <div key={id}>{<DisplayUser {...user} />}</div>;
             })}
-            {/* <span> {Math.ceil(data.length / +perPage)}</span> */}
             <span>
-              {page} / {perPage}{" "}
+              {+page} / {+perPage - 1}{" "}
             </span>
             <button onClick={prevPage} disabled={page === 1}>
               Previous Page
