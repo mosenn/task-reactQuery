@@ -5,6 +5,7 @@ import { useQuery } from "react-query";
 import DisplayUser from "../components/DisplayUser";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
+import { getUsers } from "../querys/users";
 type usersType = {
   name: string;
   phone: string;
@@ -19,10 +20,7 @@ export default function HomePage() {
   const page = searchParams.get("page") ?? 1;
   const perPage = searchParams.get("perPage") ?? 5;
 
-  const users = (page = 1) =>
-    fetch(
-      `https://63d108283f08e4a8ff8ef010.mockapi.io/users?page=${page}&limit=${perPage}`
-    ).then((res) => res.json());
+  const users = (page = 1) => getUsers(page, perPage);
 
   const { isLoading, data } = useQuery(
     ["users", page, perPage],
@@ -31,7 +29,7 @@ export default function HomePage() {
       keepPreviousData: true,
     }
   );
-
+  // console.log(data, "data");
   const nextPage = () => {
     if (data.length === 5) {
       router.push(`/?page=${+page + 1}&per_page=${perPage}`);
