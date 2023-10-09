@@ -28,9 +28,6 @@ const DisplayUser = ({ name, email, phone, id }: propsTypes) => {
   const value = { name, email, phone };
 
   return (
-    // rgb(123, 132, 250)
-    // rgb(212, 214, 245)
-    // #d4d6f5
     <section className="border  border-gray-300 rounded-lg  shadow-inner   shadow-[#d4d6f5aa] my-2 md:mx-2 ">
       <div className=" flex flex-col   ">
         <section className="p-2">
@@ -40,7 +37,7 @@ const DisplayUser = ({ name, email, phone, id }: propsTypes) => {
         </section>
         <section className=" p-2  flex justify-start  md:flex-row md:gap-3 ">
           <button
-            onClick={() => {
+            onClick={(e) => {
               mutiationDel.mutate(id);
             }}
           >

@@ -1,15 +1,13 @@
-export const addUser = async (NewUserdata: any) => {
-  console.log(NewUserdata, " NewUserdata in add user function query file");
-  const { name, email, phone } = NewUserdata;
-  // console.log(name, email, phone);
+type newUserType = { name: string; email: string; phone: string };
+
+export const addUser = async (newUser: newUserType) => {
+  console.log(newUser, " NewUserdata in add user function query file");
+  const { name, email, phone } = newUser;
+
   const data = await fetch(`${process.env.NEXT_PUBLIC_ENV_API_URL}/users`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      name,
-      email,
-      phone,
-    }),
+    body: JSON.stringify(newUser),
   });
 
   const res = await data.json();

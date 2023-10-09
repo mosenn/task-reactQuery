@@ -1,10 +1,13 @@
 import Link from "next/link";
 import React from "react";
+// for icon type props
+import { IconBaseProps } from "react-icons";
+
 type propsType = {
   address: string;
   text: string;
   sizeText: string;
-  icon?: string | any;
+  icon?: React.ReactElement<IconBaseProps>;
   title?: string;
 };
 const LinkContainer = ({ address, text, sizeText, icon, title }: propsType) => {

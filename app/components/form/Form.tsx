@@ -12,12 +12,18 @@ type userIdProps = {
   value?: inpValue;
 };
 type inpValue = {
-  name?: string;
-  email?: string;
-  phone?: string;
+  name: string;
+  email: string;
+  phone: string;
 };
-export const Form = ({ userId, style, value }: userIdProps | any) => {
-  console.log(value, "value");
+
+type errorMessageType = {
+  empty: string;
+};
+
+type CombinedType = inpValue & errorMessageType;
+
+export const Form = ({ userId, style, value }: userIdProps) => {
   const [errorMessage, setErrorMessage] = useState({
     name: "",
     phone: "",
@@ -40,6 +46,8 @@ export const Form = ({ userId, style, value }: userIdProps | any) => {
   };
 
   const queryCL = useQueryClient();
+
+  //  user add mutation
   const mutationAddUser = useMutation(addUser, {
     onSuccess: () => {
       queryCL.invalidateQueries("users");
@@ -47,32 +55,37 @@ export const Form = ({ userId, style, value }: userIdProps | any) => {
     },
   });
 
+  //user update  mutation
   const mutationUpdateUser = useMutation(updateUser, {
     onSuccess: async () => {
       await queryCL.invalidateQueries(["users"]);
+
       // navigate to home page
-      router.push("/");
+      if (path === `/update-user/${userId}`) {
+        router.push("/");
+      }
     },
   });
 
-  const submitHandler = (e: React.FormEvent) => {
+  const submitHandler = (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
     // validation setup
-    const errors: any = Validation(user);
-    setErrorMessage(errors);
+    const errors = Validation(user as CombinedType);
+    setErrorMessage(errors as CombinedType);
+
     if (Object.keys(errors).length === 0) {
       setErrorMessage({ email: "", empty: "", phone: "", name: "" });
 
       // set path for add and update user
-      if (path === "/user/add") {
+      if (path === "/add-user") {
         mutationAddUser.mutate({
           ...user,
-        } as any);
+        } as inpValue);
       }
       if (path === `/update-user/${userId}` || path === "/") {
         mutationUpdateUser.mutate({
-          ...user,
-          id: userId,
+          ...(user as inpValue),
+          id: userId as string,
         });
       }
     }
@@ -116,7 +129,7 @@ export const Form = ({ userId, style, value }: userIdProps | any) => {
           type="submit"
           className="bg-blue-500 hover:bg-blue-600 rounded-md w-[170px] m-2 p-2 text-white"
         >
-          {path === "/user/add" ? "add user" : "update user"}
+          {path === "/add-user" ? "add user" : "update user"}
         </button>
       </form>
     </section>
