@@ -2,7 +2,8 @@
 
 import React, { useState } from "react";
 import { useQueryClient, useMutation } from "react-query";
-import { deleteUser } from "../libs/users";
+
+import { deleteUser } from "../libs/users/deleteUser";
 import { Form } from "./form/Form";
 import LinkContainer from "./LinkContainer";
 import { AiFillDelete, AiFillEdit, AiOutlineClose } from "react-icons/ai";
@@ -27,14 +28,17 @@ const DisplayUser = ({ name, email, phone, id }: propsTypes) => {
   const value = { name, email, phone };
 
   return (
-    <section className="border border-gray-300 my-2 md:mx-2 ">
-      <div className=" flex flex-col md:flex-row   ">
+    // rgb(123, 132, 250)
+    // rgb(212, 214, 245)
+    // #d4d6f5
+    <section className="border  border-gray-300 rounded-lg  shadow-inner   shadow-[#d4d6f5aa] my-2 md:mx-2 ">
+      <div className=" flex flex-col   ">
         <section className="p-2">
           <p className="my-1">name : {name}</p>
           <p className="my-1">email : {email}</p>
           <p className="my-1">phone : {phone}</p>
         </section>
-        <section className=" p-2  flex justify-evenly  md:flex-row md:gap-3 ">
+        <section className=" p-2  flex justify-start  md:flex-row md:gap-3 ">
           <button
             onClick={() => {
               mutiationDel.mutate(id);
@@ -49,6 +53,7 @@ const DisplayUser = ({ name, email, phone, id }: propsTypes) => {
           </button>
 
           <button
+            className="mx-3 md:mx-0"
             onClick={() => {
               setFormActive(!formActive);
             }}

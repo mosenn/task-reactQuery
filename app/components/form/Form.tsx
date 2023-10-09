@@ -1,7 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
-import { addUser, updateUser } from "../../libs/users";
+import { addUser } from "@/app/libs/users/addUser";
+import { updateUser } from "@/app/libs/users/updateUser";
 import { usePathname, useRouter } from "next/navigation";
 import { Validation } from "./Validation";
 

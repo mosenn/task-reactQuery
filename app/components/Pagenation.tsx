@@ -1,4 +1,4 @@
-import { getUsers } from "../libs/users";
+import { Users } from "../libs/users/users";
 import { useQuery } from "react-query";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
@@ -9,7 +9,8 @@ const usePagenation = () => {
   const page = searchParams.get("page") ?? 1;
   const perPage = searchParams.get("perPage") ?? 5;
 
-  const users = (page = 1) => getUsers(page, perPage);
+  // take all users
+  const users = (page = 1) => Users(page, perPage);
 
   const { isLoading, data } = useQuery(["users", page, perPage], () =>
     users(+page)

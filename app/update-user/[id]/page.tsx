@@ -2,7 +2,8 @@
 import ContainerForm from "@/app/components/ContainerForm";
 import { Form } from "@/app/components/form/Form";
 import Title from "@/app/components/Title";
-import { user } from "@/app/libs/users";
+
+import { user } from "@/app/libs/users/user";
 import React from "react";
 import { useQuery } from "react-query";
 const UpdateUser = ({ params }: { params: { id: string } }) => {

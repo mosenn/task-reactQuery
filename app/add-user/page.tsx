@@ -1,5 +1,5 @@
 import React from "react";
-import { Form } from "../../components/form/Form";
+import { Form } from "../components/form/Form";
 import ContainerForm from "@/app/components/ContainerForm";
 import Title from "@/app/components/Title";
 const addUser = () => {

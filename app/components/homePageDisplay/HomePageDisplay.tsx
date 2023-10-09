@@ -1,30 +1,33 @@
 "use client";
-import Link from "next/link";
+import React from "react";
+import Title from "../Title";
+import LinkContainer from "../LinkContainer";
+import usePagenation from "../Pagenation";
+import DisplayUser from "../DisplayUser";
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 
-import DisplayUser from "../components/DisplayUser";
-import usePagenation from "../components/Pagenation";
-import Title from "../components/Title";
-import LinkContainer from "../components/LinkContainer";
 type usersType = {
   name: string;
   phone: string;
   email: string;
   id: string;
 };
-import { AiOutlineArrowRight, AiOutlineArrowLeft } from "react-icons/ai";
-export default function HomePage() {
+
+const HomePageDisplay = () => {
   const { isLoading, data, nextPage, prevPage, page, perPage } =
     usePagenation();
 
   return (
-    <section>
-      <Title text="Welcome to this app" />
-      <LinkContainer address="/user/add" text="add user " sizeText="2xl" />
+    <div>
+      <Title text="Welcome 🎉" />
+      <div className="md:mx-3">
+        <LinkContainer address="/add-user" text="add user " sizeText="2xl" />
+      </div>
       {isLoading ? (
         <h1>Loading...</h1>
       ) : (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3">
-          {data.map((user: usersType) => {
+        <div className=" md:grid md:grid-cols-2 lg:grid-cols-3">
+          {data?.map((user: usersType) => {
             const { id } = user;
             return (
               <div key={id}>
@@ -51,6 +54,8 @@ export default function HomePage() {
           />
         </button>
       </section>
-    </section>
+    </div>
   );
-}
+};
+
+export default HomePageDisplay;

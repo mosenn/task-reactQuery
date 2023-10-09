@@ -9,7 +9,7 @@ type propsType = {
 };
 const LinkContainer = ({ address, text, sizeText, icon, title }: propsType) => {
   return (
-    <div className={`my-3 text-${sizeText} text-blue-500 hover:text-blue-600`}>
+    <div className={`my-3  text-${sizeText} text-blue-500 hover:text-blue-600`}>
       <Link title={title} href={address} className="flex items-center">
         {icon}
         {text}
